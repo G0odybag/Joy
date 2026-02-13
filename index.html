@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Joy ❤️</title>
+    <style>
+        :root {
+            --pink-light: #ffe4e1;
+            --pink-main: #ff69b4;
+            --pink-dark: #ff1493;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--pink-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Flower Decorations */
+        .flower {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            z-index: 10;
+            max-width: 90%;
+            width: 400px;
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            color: var(--pink-dark);
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, font-size 0.2s;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        #noBtn {
+            background-color: var(--pink-main);
+            color: white;
+            position: relative;
+        }
+
+        /* Teddy Section */
+        #teddy-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .teddy-img {
+            width: 150px;
+            border-radius: 15px;
+        }
+
+        /* Heart Rain Animation */
+        .heart {
+            position: fixed;
+            top: -10%;
+            font-size: 20px;
+            color: red;
+            user-select: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        #message {
+            font-weight: bold;
+            color: var(--pink-dark);
+            margin-top: 10px;
+            min-height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower" style="top: 10%; left: 10%;">🌸</div>
+    <div class="flower" style="top: 80%; left: 15%;">🌺</div>
+    <div class="flower" style="top: 15%; left: 85%;">🌷</div>
+    <div class="flower" style="top: 75%; left: 80%;">🌸</div>
+
+    <div class="container" id="mainContainer">
+        <h1 id="question">Joy, will you be my girlfriend? 💖</h1>
+        
+        <div id="message"></div>
+
+        <div id="teddy-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXN2OXpueXN2OXpueXN2OXpueXN2OXpueXN2OXpueXN2JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/T86X6H2Y0G8v1H61G0/giphy.gif" alt="Dancing Teddy" class="teddy-img">
+        </div>
+
+        <div class="buttons" id="btnGroup">
+            <button id="yesBtn" onclick="handleYes()">Yes</button>
+            <button id="noBtn" onclick="handleNo()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const message = document.getElementById('message');
+        const teddyContainer = document.getElementById('teddy-container');
+
+        function handleNo() {
+            noCount++;
+            
+            if (noCount === 1) {
+                // First "No"
+                message.innerHTML = "plssss 🥺";
+                // Move No button up
+                noBtn.style.transform = "translateY(-50px)";
+                // Make Yes button bigger
+                yesBtn.style.transform = "scale(1.5)";
+                yesBtn.style.margin = "20px 0";
+            } else if (noCount >= 2) {
+                // Second "No"
+                question.innerHTML = "Alright, Atleast I tried.";
+                message.innerHTML = "";
+                document.getElementById('btnGroup').style.display = "none";
+            }
+        }
+
+        function handleYes() {
+            question.innerHTML = "Yay! ❤️ See you soon, Joy!";
+            message.innerHTML = "";
+            document.getElementById('btnGroup').style.display = "none";
+            teddyContainer.style.display = "block";
+            
+            // Start heart rain
+            setInterval(createHeart, 300);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            
+            document.body.appendChild(heart);
+
+            // Remove heart after it falls
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
